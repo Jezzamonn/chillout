@@ -35,11 +35,18 @@ function render() {
 		context.moveTo(0, y)
 		for (let x = 0; x < canvas.width + 30; x += 1) {
 			let sineVal = (x / 5 + ms / 100);
-			let sineAmt = Math.sin(ms / 300);
-			context.lineTo(x, y + 0.5 * lineGap * sineAmt * Math.sin(sineVal));
+			let sineAmt = Math.sin((x - y) / 300 + ms / 500);
+			sineAmt = 0.5 + 0.5 * sineAmt;
+			sineAmt = easeInOut(sineAmt);
+			context.lineTo(x, y + 0.4 * lineGap * sineAmt * Math.sin(sineVal));
 		}
 	}
 	context.stroke();
+}
+
+function easeInOut(t) {
+	let tSq = t * t;
+	return tSq / (2 * tSq - 2 * t + 1);
 }
 
 function handleResize(evt) {
