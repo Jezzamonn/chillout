@@ -31,13 +31,12 @@ function render() {
 	context.beginPath();
 	context.strokeStyle = 'blue';
 	context.lineWidth = 2;
-	let yStart = 0.1 * canvas.height;
-	let yEnd = 0.9 * canvas.height;
+	let yStart = 10 + lineGap / 2;
+	let yEnd = canvas.height - 10 - 0.25 * lineGap;
 	for (let y = yStart; y <= yEnd; y += lineGap) {
-		let yAmt = (y - yStart) / (yEnd - yStart);
-		let gap = 0.1 + 0.9 * yAmt;
+		let gap = 10;
 		let started = false;
-		for (let x = 0.5 * gap * canvas.width; x < (1 - 0.5 * gap) * canvas.width; x ++) {
+		for (let x = gap; x < canvas.width - gap; x ++) {
 			let sineVal = (x / 5 + ms / 100);
 			let sineAmt = Math.sin((x - y) / 300 + ms / 500);
 			sineAmt = 0.5 + 0.5 * sineAmt;
