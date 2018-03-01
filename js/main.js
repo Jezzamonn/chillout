@@ -10,7 +10,6 @@ function init() {
 	window.requestAnimationFrame(everyFrame);
 }
 
-// TODO: Handle framerate/game updating in separate loops (e.g. https://isaacsukin.com/news/2015/01/detailed-explanation-javascript-game-loops-and-timing)
 function everyFrame() {
 	update();
 	render();
@@ -21,6 +20,26 @@ function update() {
 }
 
 function render() {
+	const lineGap = 20;
+	let ms = Date.now();
+
+	// Clear last frame
+	context.fillStyle = 'white';
+	context.fillRect(0, 0, canvas.width, canvas.height);
+
+	// Draw lines
+	context.beginPath();
+	context.strokeStyle = 'blue';
+	context.lineWidth = 2;
+	for (let y = 0.5 * lineGap; y < canvas.height + lineGap; y += lineGap) {
+		context.moveTo(0, y)
+		for (let x = 0; x < canvas.width + 30; x += 1) {
+			let sineVal = (x / 5 + ms / 100);
+			let sineAmt = Math.sin(ms / 300);
+			context.lineTo(x, y + 0.5 * lineGap * sineAmt * Math.sin(sineVal));
+		}
+	}
+	context.stroke();
 }
 
 function handleResize(evt) {
