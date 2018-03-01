@@ -31,9 +31,11 @@ function render() {
 	context.beginPath();
 	context.strokeStyle = 'blue';
 	context.lineWidth = 2;
-	for (let y = 0.5 * lineGap; y < canvas.height + lineGap; y += lineGap) {
-		let yAmt = 2 * y / canvas.height;
-		let gap = 1 - Math.sqrt(1 - (yAmt - 1) * (yAmt - 1));
+	let yStart = 0.1 * canvas.height;
+	let yEnd = 0.9 * canvas.height;
+	for (let y = yStart; y <= yEnd; y += lineGap) {
+		let yAmt = (y - yStart) / (yEnd - yStart);
+		let gap = 0.1 + 0.9 * yAmt;
 		let started = false;
 		for (let x = 0.5 * gap * canvas.width; x < (1 - 0.5 * gap) * canvas.width; x ++) {
 			let sineVal = (x / 5 + ms / 100);
